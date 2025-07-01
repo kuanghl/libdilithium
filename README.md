@@ -63,19 +63,19 @@ mini_verify -- verify flow
 3. [openssl/liboqs兼容性测试](./test/pem/test_pem.c): 使用openssl + liboqs生成秘钥和签名的信息进行单独验签测试，目前ASN.1编码需要做部分调整。
 4. [mldsa44/65/87性能测试](./test/benchmark/test_sign_bench.c): 计算做一次秘钥生成/签名/验证所需要的cycles数。reference代码并未基于平台优化，因此对于不同平台有较大的优化空间。(以下测试结果来源于Ubuntu22.04 LTSC，AMD5600x，AMD64)
     
-    (iterations=1000, median, cycles/ticks) 
-    $$\begin{array}{c|ccl}
-        Dilithium &Keypair &Sign &Verify\\
-        \hline
-        2   &247766 &920906 &274949\\
-        3   &432041 &1485509 &420575\\
-        5   &644708 &1842047 &674348
-    \end{array}$$
-    (iterations=1000, average, cycles/ticks) 
-    $$\begin{array}{c|ccl}
-        Dilithium &Keypair &Sign &Verify\\
-        \hline
-        2   &246830 &1227200 &278448\\
-        3   &449868 &1929715 &428610\\
-        5   &665239 &2213448 &683578
-    \end{array}$$
+(iterations=1000, median, cycles/ticks) 
+$$\begin{array}{c|ccl}
+    Dilithium &Keypair &Sign &Verify\\
+    \hline
+    2   &247766 &920906 &274949\\
+    3   &432041 &1485509 &420575\\
+    5   &644708 &1842047 &674348
+\end{array}$$
+(iterations=1000, average, cycles/ticks) 
+$$\begin{array}{c|ccl}
+    Dilithium &Keypair &Sign &Verify\\
+    \hline
+    2   &246830 &1227200 &278448\\
+    3   &449868 &1929715 &428610\\
+    5   &665239 &2213448 &683578
+\end{array}$$
