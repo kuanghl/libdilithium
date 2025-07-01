@@ -1,0 +1,15 @@
+{
+    "files.associations": {
+        ".env*": "dotenv",
+        "stdlib.h": "c",
+        "string.h": "c",
+        "rpp_24cxx.h": "c",
+        "rpp_sys.h": "c",
+        "stm8s.h": "c",
+        "bs64.h": "c",
+        "array": "c",
+        "random": "c",
+        "speed_print.h": "c",
+        "cpucycles.h": "c"
+    }
+}
