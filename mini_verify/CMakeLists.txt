@@ -32,3 +32,5 @@ add_library(dilithium STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sign.c
 
 target_include_directories(dilithium    PRIVATE ${dilithium_PRIVATE_INCLUDE_DIR}
                                         PUBLIC ${dilithium_PUBLIC_INCLUDE_DIR})
+
+add_subdirectory(test)

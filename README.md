@@ -5,6 +5,8 @@
 - [RISC-V-SoC](https://github.com/Acccrypto/RISC-V-SoC): 一些基于RISC-V的格运算库PQC测试。
 - [PQRV](https://github.com/Ji-Peng/PQRV.git): 基于RISC指令的PQC加速的库，编译工具`riscv64-unknown-linux-gnu-gcc`。
 - [ZhangJiPeng](https://ji-peng.github.io/): PQRV作者论文主页。
+- [pqm4](https://github.com/mupq/pqm4.git): 用于cortex-M4的后量子加密库，最小资源要求256KB Flash，40KB RAM。
+- [mupq](https://github.com/mupq/mupq.git): pqm3/pqm4/pqm7/pqriscv等依赖的基础库文件。
 
 1. 基于`dilithium`库的基本测试。
 
