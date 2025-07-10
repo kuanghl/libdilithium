@@ -29,6 +29,8 @@ KECCAK_HEADERS: config.h params.h api.h sign.h packing.h polyvec.h poly.h ntt.h 
 
 # 编译优化
 libdilithium.a 82472bytes
+
+# mldsa44/65/87代表格的维度4x4/6x5/8x7   
 ```
 
 #### Build.
@@ -56,6 +58,19 @@ make -j8
 # 2. signature verify
 all -- sign flow
 mini_verify -- verify flow
+
+# 1.分析Dilithium库所需的ROM空间大小
+size -A libdilithium.a
+objdump -h libdilithium.a
+# 程序代码段（.text）
+# 全局/静态变量（.data/.bss）
+# RAM大小为data+bss
+# ROM大小为text+data
+
+# 2.分析Dilithium库所需的RAM空间大小
+# pmap//proc/[pid]/maps
+# 需要运行时测算
+# arm-none-eabi-size -h
 ```
 
 #### Test.
