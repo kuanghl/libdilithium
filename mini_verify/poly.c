@@ -297,55 +297,6 @@ void poly_uniform(poly *a,
 }
 
 /*************************************************
-* Name:        rej_eta
-*
-* Description: Sample uniformly random coefficients in [-ETA, ETA] by
-*              performing rejection sampling on array of random bytes.
-*
-* Arguments:   - int32_t *a: pointer to output array (allocated)
-*              - unsigned int len: number of coefficients to be sampled
-*              - const uint8_t *buf: array of random bytes
-*              - unsigned int buflen: length of array of random bytes
-*
-* Returns number of sampled coefficients. Can be smaller than len if not enough
-* random bytes were given.
-**************************************************/
-static unsigned int rej_eta(int32_t *a,
-                            unsigned int len,
-                            const uint8_t *buf,
-                            unsigned int buflen)
-{
-  unsigned int ctr, pos;
-  uint32_t t0, t1;
-  DBENCH_START();
-
-  ctr = pos = 0;
-  while(ctr < len && pos < buflen) {
-    t0 = buf[pos] & 0x0F;
-    t1 = buf[pos++] >> 4;
-
-#if ETA == 2
-    if(t0 < 15) {
-      t0 = t0 - (205*t0 >> 10)*5;
-      a[ctr++] = 2 - t0;
-    }
-    if(t1 < 15 && ctr < len) {
-      t1 = t1 - (205*t1 >> 10)*5;
-      a[ctr++] = 2 - t1;
-    }
-#elif ETA == 4
-    if(t0 < 9)
-      a[ctr++] = 4 - t0;
-    if(t1 < 9 && ctr < len)
-      a[ctr++] = 4 - t1;
-#endif
-  }
-
-  DBENCH_STOP(*tsample);
-  return ctr;
-}
-
-/*************************************************
 * Name:        challenge
 *
 * Description: Implementation of H. Samples polynomial with TAU nonzero

@@ -27,8 +27,7 @@ add_library(dilithium STATIC ${CMAKE_CURRENT_SOURCE_DIR}/sign.c
                              ${CMAKE_CURRENT_SOURCE_DIR}/reduce.c 
                              ${CMAKE_CURRENT_SOURCE_DIR}/rounding.c
                              ${CMAKE_CURRENT_SOURCE_DIR}/fips202.c 
-                             ${CMAKE_CURRENT_SOURCE_DIR}/symmetric-shake.c 
-                             ${CMAKE_CURRENT_SOURCE_DIR}/randombytes.c)
+                             ${CMAKE_CURRENT_SOURCE_DIR}/symmetric-shake.c)
 
 target_include_directories(dilithium    PRIVATE ${dilithium_PRIVATE_INCLUDE_DIR}
                                         PUBLIC ${dilithium_PUBLIC_INCLUDE_DIR})
