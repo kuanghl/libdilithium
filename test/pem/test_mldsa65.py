@@ -1,0 +1,160 @@
+
+# https://github.com/backbone-hq/pqcrypto.git
+from pqcrypto.sign.ml_dsa_65 import generate_keypair, sign, verify
+from base64 import b64encode, b64decode
+
+def ml_dsa_65_sign_verify_for_openssl():
+    secret_key = b'MIIP/gIBADALBglghkgBZQMEAxIEgg/qMIIP5gQgTBAPzOCdO6Xs46CU5sRghzn4\
+PYFbCYdrfAFl5rIl19AEgg/AT7qrHHUnqrpnUyTaPvFR8Z4psr53iXxmPycHEJxz\
+VZFwnWYsyLDenggIVt2VpvnfO7SASz0vMToRaYb7PuOauaMnEW+ecez/nnQMRxZi\
+N0OZtLDsLhmp0ENK0nW/1Do+m1Q7n9GXaolY0ZP3RwPcC5kp+kBN8Mw4aCNilpXc\
+Pu2GEYYFFjdFYREQgYAnCCRzd1djiBBVYECEF3NTZBZAaBZHUUc0FGFyJDR4EIgU\
+ZocIVHZWdCI0g3RxMCFEVWM3UwiBBQgEczaCBGJQSBiIMCeDdEImBBV4NYYihldw\
+dWiGYjgRFlJ3hDICQnMoZlFCBUclAxghOGeIdIUFF4AydhgiM1gwGBMAGDMlImU3\
+NBQWVTZ4EohSU3UXQCQUVViFZEE4EgZyQFRTdEN4SHVjUgF0FXE4ADRSYRhBFYYk\
+NzAgcGFyYFFlIzYFA2cAEBWFIEIhdAFodXZWB3RXZgAEBHIQVEMSZ2dTFmMgNBQQ\
+g4ABBHiDYkhRCDQANlCGZkSDZnWHMgIjhFIiRUAxeAhUZIMycnRgERYGdyJwRxM4\
+hgMSR0IUUnEwQYE4aBYDF3eDFxg4KHNBUwJCFjczICc1YXWFUnNlJQdEgiEiZ2J4\
+NBRkhjUTUCUFZBBFUXIkFRUlcHFBNXgjERGEBBAzZVdWd2RIZjZhJoUzhBZCdkJB\
+QwUUeIQYFGM1YTcBVUUTNzESgWEyQHhmFBdGYYCEMHWEQwMjZWMVNVSEEwcRAkgm\
+M3CEZGR4UnIDiEWDBBBCYiJ4UwIFUTASOEGBEjciJkIGdBEIRShFaIYVJAgXJYEz\
+KBZgQSRYE4aDMxd3MgYIFQhRdVhkZxVHIHJBgzFmRYUmQnA1NVJVYgFTIodIZzUH\
+YYcDMzQ1dQIAYQF0MDhkBAB2c1ZSRleHaBYnMBN3YkIIhRBkNSEXdTVBASBUdgJD\
+IgAAZyGGUCRgZmdgJFVlA2FnQDdHZxZAMWUCYEMwchQ0YxIUZRNzBXMUMDNyOIFS\
+Z4MXBhYBYkUiEgJ0QzEmOIFoIndwNBJAUhB0FFUHMEMmIVc2JwWIIHVnWEJocXIz\
+JgV4IhJgQIh2F1iDZWIiE2JSUhU4hEYHAIgSZiRxg4Y1BBg4cWM4ElE3FYNlN3UB\
+gIZGJGIoSEJDh2RRCHgVY4ZoNBIyVzIYaIA2RAFwNlVGQ4NjYkdGWIcRZIBwMlAh\
+WIGDaER0VRcCcASDUWIjFhR1E0QRYngDeAEnEjQXBhGFZAYkUmhVMkZEcyIXUFGA\
+KECEIiBhAAdjdTEBIHV1cTMHI3VgZQQwdFBgZYeDRIRWBiVHVAiEJmFIEYdlRWFi\
+FkgGaFUWKDN1NzFRgicQWAcnRDIjMGg1YCZRgXcCNgYzUBFkIXQ4UQhAEjQoQDJQ\
+VlVkJSMFUyUxNocQBENXWANWY3NDNXI4J4AydzIxEWI0R2ghY0KDGGZwZiJFcwVy\
+Bzd4UhUwA3CEcWUgdxEjI2RzVHQ0ZjFjhHI1A2GIAIWFU0UnVTcHgzMQgTF3ADJY\
+AgIHQxYXcShAaHVENWRTMwhBWGSHZkFlgkaBYzQnEDFTcVdXYAFFcWRQUSMkFlFX\
+hBIyJBAxISUFFYRQBYcDd0EBVlKDNWBiAxIXFgEASIJ2hXSDJmFgKAQQI0UoJGcl\
+ZlUHMSYTclMAUnhlBwVnGDQGR0aFFHYwI1iIZ2hxQjBxhSQlMTY2UWNnSAFCSGdl\
+F4hkFzFoJ3RAIYeEdjNQhCNAQxJ1chZBcodQdBSEdVFzVnYAWEFHdQMEQQKCU4MH\
+YDdYYBhmKBFyRQMwIScnY0QlUiYjVQhGYRYzMXIjJUFoaFIiR0YIdkUSOIRjZhhG\
+BDgwFhKAgFMlI3MREiA0NkNxZAckYhRFNHeAM4AgIYF4RlMyJoNwYWKAFlhmhGE2\
+gRIRImRBQ1h3N2VANAIwGAYCYEcYIyQoEmdoNhFHd1hXBhQgdwEXA4NgeEUQczcV\
+FGeCeFAUMiKGJzRxEAdCgBGFBzdgcQgGZUg0UxVWMEMIRDQAQVFTZxAoByRXQigx\
+gFEQgXA3UxAlhVFkhSMwAIVHka/V/XmZ40UE1q/PwmxzgBSS5knOyg379n6olft0\
+18uarbjFp4ThApAqiKUF3VhwjgY+Z5pAC8Th3Pq+9xdHdKH1IvqXVRhMOo0ofLlC\
+JF8yB0sYECP+8us/ozzrvn+euHGmor9jiRUfQMQ7Y+x0CwzaAz52ZmtJyMIBulpO\
+Sp6i+K+IhIZdpbaJRLBcLHP0fNQnHKPg7cg/GLji5mcWxWCMK/LA1IAnXVZXj5ac\
+gIe7NrV4W5i6w+ae6+3pwCiT00wCvaRAdv9r42oFSh0GorV56OL1N1PUks+M1vil\
+QsYGVPA9d8oST8nxnqtTfDBazFlPYDX3EK+dp1GTmtC7oE7wR19QTTdIk1UF/mvC\
+vn+a9XlRbmp7dEEqZGRKMU7IFoK7dPPjbgaT28Yk1y3rWfhqVIpMMUDP61qDmH5l\
+M9ju1ohAnTsdqXx10TXNiL2n5YCYiWmlYnQTiBSZxbkuIF02Z0HkviE0i1Qx4iYg\
+WPJn3V9wVOyeOJW3r7qngInPEoQoppDqOAiHF0VPGaNgfc4ZXcHhcxh0gx9PsUYB\
+CQxd9/L7nzt5Okf0ytO89DGyXgXxzyyt4boA5Jo+5IC4eZiZAm+IC7U1b3NM3p4m\
+F9g04Qe+kjmq6zJZUtYKsmCnsZq9OH0CgUHplZjBGGYde1+MefGlcFHNAmN+eJuX\
+zeJZHAKyq9nHIOBJhjip5u6kGKIq0UgfhpO3sjqQCAFObvEPSlyY7uu8bL6FfBtn\
+vVRIhTGU6o763YWB2RC49ngc1FXa3zf3x+TxC871Uwc4+v1CmKB+E/Ewt1cKzHfv\
+sE4Q8pUt8L4n5m52H33H8PPmJyVzag+0GFWm+5VZJ5KmfZDaNsE/w+YK559cL1Ue\
+41umMKxOpnhOwUVlwZ/xHEbG5I0AgAij7ft+QS4UXYffGGPNhJvTUvU+UfUIymEa\
+G2xdrgq+sX6uTX03xpUm/XIlpiw8iRZ7tLdWijOEtyIsBzTE8Bq5fmoi3i9m7z/Z\
+s0+GTOtC+NyfCCQnfNXTDBYjiTvTseX5/DuWYu3yjN3TD9JDbzQ2SzUttCjs5Mq7\
+Qa8OmPxEnwaObs40tf//1ZqOnwMnxatX473qqKCfSBUOG7u7ItzfFhdwKU2IkKFT\
+eECn0KSVi1Tt/F14fgM+K6ovArkmaDajHi0/w7DNm5BOQS2SXNUPsGyZdIMkNOU/\
+Brd3HWraqksJzBmXLjVixphSZ2C27o3f2FZdblhCIpb1/0SJwMzkccuVTS8YXEtw\
+NaIJtEyH0ZTZ/ufFfMjWwnrYYsdcmkZvLkMa/Itc0hOyyCiYB7X/oOL7Lm+WDLIA\
+7h329FpGBGpVpRl9UyAtzbGb3iFOtjBogxl00FXdMIcr9SU6ZzV+1fs84xeSzrdM\
+BaG9CnXMeM+2zPM4hmXuSbJNZNnUJwdSVu/w0LHwIVsXrHewJWHS+HvfdBchS2b7\
+w2BAZQNiY3bru1QZdz9TEio/Vi8QfbEyjXpy6LqmQujpNEUpVaN7HgUfmxWKPtwD\
+kILCB9TDY3GWb6Hb8FhVWv5KNzZ3zDVdC9B2tRbrJWG+UGfULRsVR3qx3oi5Q3qA\
+qg4tsqlmyOJ5pe6/AME5k8+1QzNldcn6GuPDPv2cNLIn1tSz24folejd0YdsvoEp\
+r8ygeM9afuHC+rhhKxDWwaIcxqk2x2fI3Wy6o2rSbh3D1lmNcYOxPN60MYOfIiv6\
+i50NtGUqBB+OHu21wS07fQADeLRovkrwN9NiQKllLKxF4b6D7LItxgsNzA026efL\
+ieTyIZflSm64VCMGrSj/Cd+EmN1xpV+eqSsxO5KbG8XI3uwawRHzC0bdpMmC3jQH\
+XQSDWGjH4MWS8QxEoxjkjaobs4rey1PFXxb67Z5r3lSEENpm9W03D+mZ1VhdfMSL\
+pQWp95YvW5f4KKja5tDS1tahpZt5rrsXxoGYKSU+8nVHrgzgJHDmtbzfavfW+dkK\
+us+CHLY+ZUeqbhvnZULvr1zravnNmViEEQm1aIT9iEcLFcUFgGVBXZFJggLSyTOT\
+JDb7I0hBLk8AE0kzy7ZBhpxJQt8CUjEJ3A/1tS4KRnqSKsnqa0gcyP9JNGCsrC+P\
+fK07UUf48/onOdpORlXRqbJ1sjd+XGwHjyWoNpJqHK4+sGC6xUEan9f1kv4pUrkt\
+3UAwLXH0W5x+1QSOr6+52EbWZomQZEtqx+3iqfl3/pbh8ldnhTisfzNtPs08H9ld\
+Ccn1QdSXCbczV6Pa0PsDsxTWFg8ciRTh6Y3oJXyDE2B/UOtal1qo7t4N1qb0Fv7b\
+bdVAlGbfmDh2jzQKfpKq5jqe4lm2u7FdslvrlkS/fvimH8OFwQDU5KnUWqlcTAzK\
+/tyF7kXFKvmAuBivLoSUjcclQ/XDkd9oB/5wyPCe0S+Xvv3bhMDg8k89Jox2+f1w\
+riKTsdyEuIiaxMOvarLnaFj0XtnxZkXxxhnmdQa3DEYWgZ81FiuZtMYvleeQQlx/\
+b5iS/odiccpsi7IgeOd5t1YM5TSeW4u9LYoCKvxSJ6ksRJtKqdHONshSSbVeIfaQ\
+X2nm7iw8hY4bf/B7ToStv/eZaxrbXoCzg64u3dolEPX8XO1LPqo9TqaQgw7ks1Qe\
+xmmQ/eHMwvJv/PcoifXWDl9iAECMiGc0sxCpPAfoN+vcthvELyp5t28pivyQLinA\
+oWFLdPPFKC2yvBgTR+JxpGgOhMZSm+V0bVpJgZdYFrfF0zSBuFXykV9PIyCjERqd\
+rT9sStA33Kyy/WvCLaPQXgmL0ytAuaBrTmdBdtcCclHxBvWjjpSufFLJmFzeQ7wD\
+3RRN4bLKg/j3zzjCS/yeyMbKACHbyP8RP7lj9hvU2WbCu9sXcD229/drQFFnzSi+\
+PzPlnTjKyxt5S+uL9gvUnoZVeUhi4pYcM8n765jkJfcPoUX+ie0phAD4ZaZq072J\
+KkOMwVPs8PE+IlYe6Y4xLTN8981JcXJPXWRmphIDTyuLxVwoQgKmY0rMaJWp0wQf\
+5MeK+EUbVrMTjcHanwPYSzJ76ymtMymrWC/iUPekeb3+yuNHliLVSx+wHfIKbb6a\
+sHGcczujOKKifQBYFqq4Dkj3UJP1FeA3ILVKSv0ksXw8m8swsSHL7X1eBs9OFQTQ\
+pNFp3eFVYSF8p+QCLowY02l1NchrgPON/T7dUA1K2Fqhv06ev3soYYgiTzjIjPlM\
+gJbyVgt+FOtM2o/edEeXGBaoOE8mH+7xudRuikO+JxPGzIrf91++SNfwp/ckZrNZ\
+/6aE0wOONVINYkjO8aVhdzEwE4L1QxLCgkjmxSZsxVIGp5Dq+Gpbw73AEbk64mZi\
+9Kyj93ug2P6AbsNveZrHMlCW'
+
+    public_key = b'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\
+6XzcsDji'
+
+    # https://github.com/open-quantum-safe/liboqs/blob/main/docs/algorithms/sig/ml_dsa.md
+    # dumpasn1 -a ./pubkey.der 
+    # get keysize is different from openssl generate key
+    bintmp = b64decode(secret_key)
+    secret_key_bin = bintmp[66:]
+    bintmp = b64decode(public_key)
+    public_key_bin = bintmp[22:]
+    print("openssl private key size %d" % len(b64decode(secret_key)))
+    print("openssl public key size %d" % len(b64decode(public_key)))
+    print("ml_dsa_65 private key size %d" % len(secret_key_bin))
+    print("ml_dsa_65 public key size %d" % len(public_key_bin))
+    
+    signature = sign(secret_key_bin, b"hello world!\n")
+    print("\nml_dsa_65 sign ok size %d\n" % len(signature))
+    print(b64encode(signature))
+    
+    assert verify(public_key_bin, b"hello world!\n", signature)
+    print("\nml_dsa_65 verify ok\n")
+
+def main():
+    ml_dsa_65_sign_verify_for_openssl()
+
+if __name__ == "__main__":
+    main()
